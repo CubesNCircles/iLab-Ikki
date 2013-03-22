@@ -33,7 +33,8 @@
 			<div class="well">
 				<h4>Intro</h4>
 
-				<p>This a prototype. It uses the wikilocation API & wikipedia API to get the close buildings near your current location.</p>
+				<p>This a prototype. It uses the wikilocation API & wikipedia API to get the close buildings & places near your current location.</p>
+				<p><a href="https://github.com/CubesNCircles/iLab-Ikki" target="_blank">View source</a> | <a href="https://cubesncircles.wordpress.com">View project blog</a></p>
 			</div>
 			<div class="sidebar-nav">
 				<div class="well" style="padding: 8px 0;" id="articles">
