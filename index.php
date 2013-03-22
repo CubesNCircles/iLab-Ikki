@@ -9,7 +9,7 @@
 			padding: 0;
 		}
 		.content{
-			width: 32%;
+			width: 45%;
 			float: left;
 		}
 		a{
@@ -27,10 +27,7 @@
 <div class="content" id="left">
 	<div id="articles"></div>
 </div>
-<div class="content" id="mid">
-	<div id="lat"></div>
-	<div id="closest"></div>
-</div>
+
 <div class="content" id="right">
 	<div id="alerts"></div>
 </div>

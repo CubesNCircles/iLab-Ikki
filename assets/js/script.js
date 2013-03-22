@@ -5,15 +5,24 @@
 			radius: 2000,
 			locale: 'fr',
 			latitude: '',
-			longitude: ''
+			longitude: '',
+			articleWrapper: $('#right'),
+			listWrapepr: $('#articles')
 		},
 		pois: [],
 
+		/**
+		 * Load options & Init the ikki object
+		 * @param  array config config array
+		 */
 		init: function (config) {
 			$.extend(this.config, config);
 			this.getLocation.call();
 		},
 
+		/**
+		 * Get the current location w/ geolocation
+		 */
 		getLocation: function() {
 			if(navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition( ikki.setLocation );
@@ -22,6 +31,9 @@
 			}
 		},
 
+		/**
+		 * Set the location variables
+		 */
 		setLocation: function(position) {
 			var config = ikki.config;
 			config.latitude = position.coords.latitude;
@@ -29,6 +41,11 @@
 			ikki.getWikiLocation(config.latitude, config.longitude);
 		},
 
+		/**
+		 * Query the Wiki API & get close locations
+		 * @param  {int} latitude
+		 * @param  {int} longitude
+		 */
 		getWikiLocation: function(latitude, longitude) {
 			var config = ikki.config;
 
@@ -39,6 +56,10 @@
 			);
 		},
 
+		/**
+		 * Get Points of Interest
+		 * @param  {obj} data
+		 */
 		getPOIs: function(data) {
 			for(var i=0 ; i < data.articles.length ; i++){
 				var d = data.articles[i];
@@ -50,46 +71,47 @@
 			ikki.downloadClosest();
 		},
 
+		/**
+		 * Make a list with the point of interests
+		 */
 		listPOIs: function() {
-			var toAppend = '<ol>',
-				pois = this.pois;
+			var toAppend = '<ul>',
+				pois = this.pois,
+				listWrapper = this.config.listWrapepr,
+				articleWrapper = this.config.articleWrapper;
+
 			for (var i=0 ; i < pois.length ; i++){
 				toAppend += '<li><a href="#" data-id="'+pois[i].id+'" data-url="'+pois[i].url+'" class="list">'+pois[i].title+'</a>';
 				toAppend += ' / Distance : '+pois[i].distance+' / Type : '+pois[i].type+'</li>';
 			}
-			toAppend += '</ol>';
-			$('#articles').append(toAppend);
-			$('.list').click(function(e){
+			toAppend += '</ul>';
+			listWrapper.append(toAppend);
+			listWrapper.find('a').on('click', function(e) {
 				e.preventDefault();
-				var u = $(this).attr('data-id');
-				loadArticle(u);
-
 				// get the url
-				var url = $(this).attr('data-url');
-
-				// ajax post to download page & append to #right
-				$.post("download_page.php", { "url": url }, function(data){
-					// console.log(data);
-					$('#right').html('');
-					$('#right').append(data);
-				});
-
+				var url = $(this).data('url');
+				ikki.downloadPage(url);
 			});
 		},
 
 		downloadClosest: function() {
-			var c = this.pois[0].url;
-
-			$.post("download_page.php", { "url": c },
-			function(data){
-				// console.log(data);
-				$('#right').append(data);
+			var url = this.pois[0].url;
+			ikki.downloadPage(url);
+		},
+		/**
+		 * Download the given page
+		 * @param  {str} url
+		 */
+		downloadPage: function(url) {
+			var articleWrapper = this.config.articleWrapper;
+			// ajax post to download page & append to #right
+			$.post("download_page.php", { "url": url }, function(data){
+				articleWrapper.html('');
+				articleWrapper.append(data);
 			});
 		}
 	};
-
-	ikki.init({
-		radius: 10000
-	});
+	// Start things off, options possible
+	ikki.init();
 
 })();
