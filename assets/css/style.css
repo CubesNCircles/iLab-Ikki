@@ -1,0 +1,17 @@
+/* Native Scrolling */
+#container {
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+a {
+    /* Removes the default gray tap color */
+    -webkit-tap-highlight-color: transparent;
+
+    /* Disables the default action sheet */
+    -webkit-touch-callout: none;
+}
+
+@media (orientation: landscape) {
+    /* do something else */
+}

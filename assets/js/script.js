@@ -75,17 +75,18 @@
 		 * Make a list with the point of interests
 		 */
 		listPOIs: function() {
-			var toAppend = '<ul class="nav nav-list"><li class="nav-header">Close places</li> ',
+			var toAppend = '<li class="dropdown">',
 				pois = this.pois,
 				listWrapper = this.config.listWrapepr,
 				articleWrapper = this.config.articleWrapper;
-
+			toAppend += '<a href="#" class="dropdown-toggle" data-toggle="dropdown">Choose destination <b class="caret"></b></a>';
+			toAppend += '<ul class="dropdown-menu">';
 			for (var i=0 ; i < pois.length ; i++){
-				toAppend += '<li><a href="#" data-id="'+pois[i].id+'" data-url="'+pois[i].url+'" class="list">'+pois[i].title+'';
-				toAppend += ' <span class="badge badge-info">'+pois[i].distance+'</span>  <span class="badge badge-warning">'+pois[i].type+'</span></a></li>';
-				toAppend += '<li class="divider"></li>';
+				toAppend += '<li><a href="#" data-id="'+pois[i].id+'" data-url="'+pois[i].url+'" class="list">'+pois[i].title+'</li>';
+				// toAppend += ' <span class="badge badge-info">'+pois[i].distance+'</span>  <span class="badge badge-warning">'+pois[i].type+'</span></a></li>';
+				// toAppend += '<li class="divider"></li>';
 			}
-			toAppend += '</ul>';
+			toAppend += '</ul></li>';
 			listWrapper.append(toAppend);
 			listWrapper.find('a').on('click', function(e) {
 				e.preventDefault();
