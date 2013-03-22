@@ -78,7 +78,8 @@ $(document).ready(function(){
 
 		$.post("download_page.php", { "url": c },
 			function(data){
-				console.log(data);
+				// console.log(data);
+				$('#right').append(data);
 			});
 	}
 
