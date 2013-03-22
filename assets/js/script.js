@@ -54,33 +54,48 @@ $(document).ready(function(){
 	function listPOIs(){
 		var toAppend = '<ol>';
 		for (var i=0 ; i<pois.length ; i++){
-			toAppend += '<li><a href="#" data-id="'+pois[i].id+'" class="list">'+pois[i].title+'</a>';
+			toAppend += '<li><a href="#" data-id="'+pois[i].id+'" data-url="'+pois[i].url+'" class="list">'+pois[i].title+'</a>';
 			toAppend += ' / Distance : '+pois[i].distance+' / Type : '+pois[i].type+'</li>';
 		}
 		toAppend += '</ol>';
 		$('#articles').append(toAppend);
-		loadNext();
-	}
-
-	// Load next article on
-	function loadNext(){
 		$('.list').click(function(e){
 			e.preventDefault();
 			var u = $(this).attr('data-id');
 			loadArticle(u);
 
+			// get the url
+			var url = $(this).attr('data-url');
+			console.log(url);
+			// ajax post to download page & append to #right
+			$.post("download_page.php", { "url": url }, function(data){
+				// console.log(data);
+				$('#right').html('');
+				$('#right').append(data);
+			});
+
 		});
 	}
+
+	// Load next article on
+	// function loadNext(){
+	// 	$('.list').click(function(e){
+	// 		e.preventDefault();
+	// 		var u = $(this).attr('data-id');
+	// 		loadArticle(u);
+	// 		// TODO ajax request too
+	// 	});
+	// }
 
 	// Download closest
 	function downloadClosest() {
 		var c = pois[0].url;
 
 		$.post("download_page.php", { "url": c },
-			function(data){
-				// console.log(data);
-				$('#right').append(data);
-			});
+		function(data){
+			// console.log(data);
+			$('#right').append(data);
+		});
 	}
 
 	// Load and display the Wikipedia data for the closest Landmark
