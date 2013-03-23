@@ -6,6 +6,8 @@
 	<meta content="yes" name="apple-mobile-web-app-capable"/>
 	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 	<meta name="apple-mobile-web-app-title" content="Ikki">
+	<link rel="apple-touch-startup-image" href="assets/img/4/apple-touch-startup-image.png" media="(device-height:480px)">
+	<link rel="apple-touch-startup-image" href="assets/img/5/apple-touch-startup-image.png" media="(device-height:568px)">
 
 	<title>iLab - IkkI</title>
 	<style>

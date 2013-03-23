@@ -7,7 +7,8 @@
 			latitude: '',
 			longitude: '',
 			articleWrapper: $('#right'),
-			listWrapepr: $('#articles')
+			listWrapepr: $('#articles'),
+			placeType: ''
 		},
 		pois: [],
 
@@ -61,9 +62,16 @@
 		 * @param  {obj} data
 		 */
 		getPOIs: function(data) {
+			var type = this.config.placeType;
+
 			for(var i=0 ; i < data.articles.length ; i++){
 				var d = data.articles[i];
-				if(data.articles[i].type !== ''){
+				if(data.articles[i].type !== '' && data.articles[i].type == type !== '' ){
+					//http://stackoverflow.com/questions/4587061/how-to-determine-if-object-is-in-array
+					if ( data.articles[i].type == type ) {
+						this.pois.push(d);
+					}
+				} else {
 					this.pois.push(d);
 				}
 			}
@@ -114,6 +122,8 @@
 		}
 	};
 	// Start things off, options possible
-	ikki.init();
+	ikki.init({
+		placeType: 'railwaystation'
+	});
 
 })();
