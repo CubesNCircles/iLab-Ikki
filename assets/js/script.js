@@ -115,7 +115,7 @@
 		downloadPage: function(url) {
 			var articleWrapper = this.config.articleWrapper;
 			// ajax post to download page & append to #right
-			$.post("download_page.php", { "url": url }, function(data){
+			$.post("assets/php/download_page.php", { "url": url }, function(data){
 				articleWrapper.html('');
 				articleWrapper.append(data);
 			});
