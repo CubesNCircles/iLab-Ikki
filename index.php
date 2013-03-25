@@ -34,11 +34,6 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container-fluid">
-			<!-- <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</a> -->
 			<a class="brand" href="#" name="top">Ikki</a>
 			<ul class="nav ">
 				<ul class="nav" id="articles">
@@ -61,7 +56,10 @@
 				<p>This a prototype. It uses the wikilocation API & wikipedia API to get the close buildings & places near your current location.</p>
 				<p><a href="https://github.com/CubesNCircles/iLab-Ikki" target="_blank">View source</a> | <a href="https://cubesncircles.wordpress.com">View project blog</a></p>
 			</div>
-		<div class="span5" id="right"></div>
+		<div class="span5">
+			<button class="btn btn-success">Like!</button>
+			<div class="single"></div>
+		</div>
 	</div>
 </div>
 

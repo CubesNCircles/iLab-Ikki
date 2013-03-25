@@ -26,6 +26,7 @@
 	$('div#mw-content-text a').on('click', function(e) {
 		e.preventDefault();
 	});
+
 	// edit links
 	$('span.editsection').hide();
 	// toc table

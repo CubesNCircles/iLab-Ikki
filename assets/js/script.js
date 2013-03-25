@@ -6,8 +6,9 @@
 			locale: 'fr',
 			latitude: '',
 			longitude: '',
-			articleWrapper: $('#right'),
+			articleWrapper: $('div.single'),
 			listWrapepr: $('#articles'),
+			buttonWrapper: $('#buttonWrapper'),
 			//placeType possibilitis: isle, city, landmark, railwaystation,
 			placeType: ''
 		},
@@ -107,7 +108,11 @@
 
 		downloadClosest: function() {
 			var url = this.pois[0].url;
-			ikki.downloadPage(url);
+			// if there is a location close by.
+			if( url ) {
+				ikki.downloadPage(url);
+			}
+			this.likeIt();
 		},
 		/**
 		 * Download the given page
@@ -126,6 +131,15 @@
 			var locations = this.pois;
 			$.post("assets/php/add_locations_to_db.php", { "locations": locations }, function(data){
 				console.log(data);
+			});
+		},
+
+		likeIt: function() {
+			var loc_id = this.pois[0].id;
+			$('.btn-success').on('click', function(e) {
+				$.post("assets/php/likeIt.php", { "loc_id": loc_id }, function(data){
+					console.log(data);
+				});
 			});
 		}
 	};

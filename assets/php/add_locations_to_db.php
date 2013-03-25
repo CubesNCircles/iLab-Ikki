@@ -1,15 +1,16 @@
 <?php
-    require_once 'PDOclass.php';
+    require_once 'MysqlDB.php';
     $locations = $_POST['locations'];
 
-    $db = new DBquery;
+    $db = new MysqlDb('localhost', 'root', 'root', 'ikki');
 
-    $dbLocations = $db->getAll('locations');
+    $dbLocations = $db->get('locations');
+
     $n = 0;
     foreach ( $locations as $location )
     {
         // Check uniqueness
-        if ( $dbLocations[$n]['loc_id'] != $location['id'] )
+        if ( $dbLocations[$n]['loc_id'] != (int)$location['id'] )
         {
             $data = [
                 'title' => $location['title'],
@@ -23,7 +24,7 @@
                 'type' => $location['type'],
                 'likes' => 0,
             ];
-            echo ( $db->insert('locations', $data) ) ? 'true' : 'false';
+            if ( $db->insert('locations', $data) ) echo 'Insert success!';
         }
         $n++;
     }
