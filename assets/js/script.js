@@ -96,7 +96,8 @@
 			}
 			toAppend += '</ul></li>';
 			listWrapper.append(toAppend);
-			listWrapper.find('a').on('click', function(e) {
+			listWrapper.find('a.list').on('click', function(e) {
+				console.log('fail');
 				e.preventDefault();
 				// get the url
 				var url = $(this).data('url');
