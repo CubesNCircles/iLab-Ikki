@@ -77,6 +77,7 @@
 			}
 			ikki.listPOIs();
 			ikki.downloadClosest();
+			ikki.postToDb();
 		},
 
 		/**
@@ -90,7 +91,7 @@
 			toAppend += '<a href="#" class="dropdown-toggle" data-toggle="dropdown">Choose destination <b class="caret"></b></a>';
 			toAppend += '<ul class="dropdown-menu">';
 			for (var i=0 ; i < pois.length ; i++){
-				toAppend += '<li><a href="#" data-id="'+pois[i].id+'" data-url="'+pois[i].url+'" class="list">'+pois[i].title+'</li>';
+				toAppend += '<li><a href="#" data-id="'+pois[i].id+'" data-url="'+pois[i].url+'" class="list">'+pois[i].title+' ('+pois[i].distance+')</li>';
 				// toAppend += ' <span class="badge badge-info">'+pois[i].distance+'</span>  <span class="badge badge-warning">'+pois[i].type+'</span></a></li>';
 				// toAppend += '<li class="divider"></li>';
 			}
@@ -118,6 +119,19 @@
 			$.post("assets/php/download_page.php", { "url": url }, function(data){
 				articleWrapper.html('');
 				articleWrapper.append(data);
+			});
+		},
+
+		postToDb: function() {
+			var locations = this.pois;
+
+			$.ajax({
+				type: "POST",
+				url: "assets/php/add_locations_to_db.php",
+				data: "locations="+locations,
+				success: function(data) {
+					console.log('postToDb: succes!'+ data);
+				}
 			});
 		}
 	};

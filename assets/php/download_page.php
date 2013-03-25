@@ -23,7 +23,7 @@
 	}
 ?>
 <script>
-	$('a').on('click', function(e) {
+	$('div#mw-content-text a').on('click', function(e) {
 		e.preventDefault();
 	});
 	// edit links
