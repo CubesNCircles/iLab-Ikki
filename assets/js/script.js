@@ -71,7 +71,7 @@
 					if ( data.articles[i].type == type ) {
 						this.pois.push(d);
 					}
-				} else {
+				} else if(data.articles[i].type !== '') {
 					this.pois.push(d);
 				}
 			}

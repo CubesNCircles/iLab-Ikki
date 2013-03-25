@@ -5,11 +5,10 @@
     $db = new DBquery;
 
     $dbLocations = $db->getAll('locations');
-    var_dump($dbLocations[0]['loc_id']);
     $n = 0;
     foreach ( $locations as $location )
     {
-        // if $location['id'] doesnt exist in $dbLocations[n]['loc_id']
+        // Check uniqueness
         if ( $dbLocations[$n]['loc_id'] != $location['id'] )
         {
             $data = [
@@ -22,10 +21,9 @@
                 'mobile_url' => $location['mobileurl'],
                 'distance' => $location['distance'],
                 'type' => $location['type'],
+                'likes' => 0,
             ];
             echo ( $db->insert('locations', $data) ) ? 'true' : 'false';
         }
-
         $n++;
-
     }
