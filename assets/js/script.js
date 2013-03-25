@@ -125,13 +125,17 @@
 		postToDb: function() {
 			var locations = this.pois;
 
-			$.ajax({
-				type: "POST",
-				url: "assets/php/add_locations_to_db.php",
-				data: "locations="+locations,
-				success: function(data) {
-					console.log('postToDb: succes!'+ data);
-				}
+			// $.ajax({
+			// 	type: "POST",
+			// 	url: "assets/php/add_locations_to_db.php",
+			// 	data: "locations="+locations,
+			// 	success: function(data) {
+			// 		console.log('postToDb: succes!'+ data);
+			// 	}
+			// });
+
+			$.post("assets/php/add_locations_to_db.php", { "locations": locations }, function(data){
+				console.log(data);
 			});
 		}
 	};

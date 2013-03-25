@@ -1,11 +1,11 @@
-<?php 
+<?php
 
 class DBquery{
 
 	private $db_host = 'localhost';
-	private $db_name = 'pat';
+	private $db_name = 'ikki';
 	private $db_username = 'root';
-	private $db_password = '';
+	private $db_password = 'root';
 
 	private $_conn;
 	private $_query;
@@ -39,7 +39,7 @@ class DBquery{
 	 * @param int $numRows / The number of rows to return
 	 * @return array / The returned rows from the select query
 	 */
-	public function selectAll($tableName, $numRows = NULL)
+	public function getAll($tableName, $numRows = NULL)
 	{
 		$this->_connect();
 		$this->_query = "SELECT * from $tableName";
@@ -82,7 +82,7 @@ class DBquery{
 		$this->_prepareQuery();
 
 		if ($this->_stmt->rowCount()) {
-			return true;	
+			return true;
 		}
 	}
 
@@ -101,7 +101,7 @@ class DBquery{
 		$this->_prepareQuery();
 
 		if ($this->_stmt->rowCount()) {
-			return true;	
+			return true;
 		}
 	}
 
@@ -118,7 +118,7 @@ class DBquery{
 		$this->_prepareQuery();
 
 		if ($this->_stmt->rowCount()) {
-			return true;	
+			return true;
 		}
 	}
 
@@ -143,7 +143,7 @@ class DBquery{
 				$this->_where .= '(' . $keys[0] . " = :w_$keys[0] ";
 				$this->_where .= $args[$keys[1]];
 				$this->_where .= ' ' . $keys[2] . " = :w_$keys[2])";
-				
+
 				$this->_prepareArgs["w_$keys[0]"] = $args[$keys[0]];
 				$this->_prepareArgs["w_$keys[2]"] = $args[$keys[2]];
 			}
@@ -265,7 +265,6 @@ class DBquery{
 	 */
 	private function _prepareQuery()
 	{
-		echo $this->_query . '<br>';
 		$this->_stmt = $this->_conn->prepare($this->_query);
 		$this->_stmt->execute($this->_prepareArgs);
 	}
