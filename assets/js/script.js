@@ -8,6 +8,7 @@
 			longitude: '',
 			articleWrapper: $('#right'),
 			listWrapepr: $('#articles'),
+			//placeType possibilitis: isle, city, landmark, railwaystation,
 			placeType: ''
 		},
 		pois: [],
@@ -62,16 +63,16 @@
 		 * @param  {obj} data
 		 */
 		getPOIs: function(data) {
-			var type = this.config.placeType;
+			var placeType = this.config.placeType;
 
 			for(var i=0 ; i < data.articles.length ; i++){
 				var d = data.articles[i];
-				if(data.articles[i].type !== '' && data.articles[i].type == type !== '' ){
-					//http://stackoverflow.com/questions/4587061/how-to-determine-if-object-is-in-array
-					if ( data.articles[i].type == type ) {
+
+				if( placeType !== '' && data.articles[i].type !== '' ) {
+					if( data.articles[i].type == placeType ) {
 						this.pois.push(d);
 					}
-				} else if(data.articles[i].type !== '') {
+				} else if( placeType === '' && data.articles[i].type !== '' ) {
 					this.pois.push(d);
 				}
 			}
@@ -92,8 +93,6 @@
 			toAppend += '<ul class="dropdown-menu">';
 			for (var i=0 ; i < pois.length ; i++){
 				toAppend += '<li><a href="#" data-id="'+pois[i].id+'" data-url="'+pois[i].url+'" class="list">'+pois[i].title+' ('+pois[i].distance+')</li>';
-				// toAppend += ' <span class="badge badge-info">'+pois[i].distance+'</span>  <span class="badge badge-warning">'+pois[i].type+'</span></a></li>';
-				// toAppend += '<li class="divider"></li>';
 			}
 			toAppend += '</ul></li>';
 			listWrapper.append(toAppend);
@@ -124,16 +123,6 @@
 
 		postToDb: function() {
 			var locations = this.pois;
-
-			// $.ajax({
-			// 	type: "POST",
-			// 	url: "assets/php/add_locations_to_db.php",
-			// 	data: "locations="+locations,
-			// 	success: function(data) {
-			// 		console.log('postToDb: succes!'+ data);
-			// 	}
-			// });
-
 			$.post("assets/php/add_locations_to_db.php", { "locations": locations }, function(data){
 				console.log(data);
 			});
@@ -141,7 +130,7 @@
 	};
 	// Start things off, options possible
 	ikki.init({
-		placeType: 'railwaystation'
+
 	});
 
 })();
