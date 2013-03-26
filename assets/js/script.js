@@ -13,6 +13,7 @@
 			placeType: ''
 		},
 		pois: [],
+		currentID: null,
 
 		/**
 		 * Load options & Init the ikki object
@@ -102,12 +103,14 @@
 				e.preventDefault();
 				// get the url
 				var url = $(this).data('url');
+				this.currentID = $(this).data('id');
 				ikki.downloadPage(url);
 			});
 		},
 
 		downloadClosest: function() {
 			var url = this.pois[0].url;
+			this.currentID = this.pois[0].id;
 			// if there is a location close by.
 			if( url ) {
 				ikki.downloadPage(url);
@@ -136,6 +139,7 @@
 
 		likeIt: function() {
 			var loc_id = this.pois[0].id;
+			console.log(this.currentID);
 			$('.btn-success').on('click', function(e) {
 				$.post("assets/php/likeIt.php", { "loc_id": loc_id }, function(data){
 					console.log(data);
