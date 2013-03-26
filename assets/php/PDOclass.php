@@ -39,7 +39,7 @@ class DBquery{
 	 * @param int $numRows / The number of rows to return
 	 * @return array / The returned rows from the select query
 	 */
-	public function getAll($tableName, $numRows = NULL)
+	public function selectAll($tableName, $numRows = NULL)
 	{
 		$this->_connect();
 		$this->_query = "SELECT * from $tableName";

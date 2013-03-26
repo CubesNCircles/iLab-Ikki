@@ -10,10 +10,10 @@ $db = new MysqlDb('localhost', 'root', 'root', 'ikki');
 
 
 $results = $db->query('SELECT * FROM locations WHERE loc_id =' . $loc_id);
-var_dump($results);
+$oldLikes = $results[0]['likes'];
 
-// $db->where( 'loc_id', $loc_id );
-// $userData = [
-//     'likes' =>
-// ];
-// $db->update();
+$updateData = [
+    'likes' => $oldLikes + 1,
+];
+$db->where( 'loc_id', $loc_id );
+$updates = $db->update('locations', $updateData);
