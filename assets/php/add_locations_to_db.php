@@ -29,7 +29,7 @@
                 'distance' => $location['distance'],
                 'likes' => 0,
             ];
-            //if ( $db->insert('locations', $data) ) echo 'Insert success!';
+            if ( $db->insert('locations', $data) ) echo 'Insert success!';
         }
         $n++;
     }
